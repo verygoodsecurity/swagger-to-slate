@@ -1,6 +1,7 @@
 // Import objects
 const responses = require('./responses') 
 const parameters = require('./parameter') 
+const Components = require('./components') 
 
 // Allowed HTTP method
 const ALLOWED_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'options'] 
@@ -25,26 +26,30 @@ function parse(path, data) {
 
       if (search(method, ALLOWED_METHODS)) {
 
-        // Set method as a subheader
-        res.push(`### ***${method.toUpperCase()}*** \n`) 
         const pathInfo = data[method] 
 
         // Set summary
-        if ('summary' in pathInfo) {
-          res.push(`**Summary:** ${pathInfo.summary}\n`) 
+        if (!('summary' in pathInfo)) {
+          return;
         }
+
+        res.push(`### ${pathInfo.summary}\n`) 
+
+        // Set path
+        res.push(`<span class="url"><span class="method">\`${method.toUpperCase()}\`</span><span class="path">${path}</span> \n`)
 
         // Set description
         if ('description' in pathInfo) {
-          res.push(`**Description:** ${pathInfo.description}\n`) 
+          res.push(`${pathInfo.description}\n`) 
         }
-
-        // Set path
-        res.push(`#### HTTP Request \n\`***${method.toUpperCase()}*** ${path}\` \n`)
 
         // Build parameters
         if ('parameters' in pathInfo || pathParameters) {
           res.push(`${parameters.parse(pathInfo.parameters, pathParameters)}\n`) 
+        }
+
+        if ('requestBody' in pathInfo) {
+          res.push(`${Components.parseRequestBody(pathInfo.requestBody)}\n`) 
         }
 
         // Build responses

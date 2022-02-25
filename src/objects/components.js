@@ -68,6 +68,17 @@ function parseProperties(properties) {
     return res.join('\n') 
 }
 
+function parseRequestBody(requestBodyDefintion) {
+
+    const res = [] 
+    res.push('> Request')
+    res.push('```json')
+    res.push('{"foo": "bar"}')
+    res.push('```')
+    
+    return res.join('\n') 
+
+}
 
 // To search entry into array
 function search(key, array) {
@@ -82,4 +93,4 @@ function search(key, array) {
   return false 
 } 
 
-module.exports = {parseSchemas}
+module.exports = {parseSchemas, parseRequestBody}

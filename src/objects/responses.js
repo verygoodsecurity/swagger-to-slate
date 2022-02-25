@@ -11,6 +11,15 @@ function parse(responses) {
         let desc = responses[response] && responses[response].description || '';
         res.push(`| ${response} | ${desc.replace(/[\r\n]/g, ' ') || ''} |`) 
     }) 
+
+    res.push('> Response')>
+
+    res.push('```json')
+    res.push('```')
+
+
+
+
     return res.join('\n') 
 }
 
