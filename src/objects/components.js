@@ -29,13 +29,38 @@ function parseSchemas(schemas) {
         }
 
         if ('properties' in data) {
-            res.push(`${parameters.parse(null, data.properties)}\n`) 
+            res.push(`${parseProperties(data.properties)}\n`) 
         }
 
     }
   )
   return res.length ? res.join('\n') : null 
 } 
+
+function parseProperties(properties) {
+
+    const res = [] 
+    res.push('| Attribute | Type | Description | ') 
+    res.push('| ---- | -------- | ---- |') 
+    
+    // Maps the parameters and set values into the parameters value line
+    var arr =[]
+    Object.keys(properties).map(
+        name => {
+            let data = properties[name]
+            const line = [] 
+            line.push(name)
+            line.push(data.type)
+            line.push(data.description)
+
+            res.push(`|${line.map(el => ` ${el} `).join('|')}|`) 
+
+        }
+    )
+
+    return res.join('\n') 
+}
+
 
 // To search entry into array
 function search(key, array) {
