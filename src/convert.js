@@ -5,6 +5,7 @@ const Info = require('./objects/info')
 const Path = require('./objects/path') 
 const SecurityDefinitions = require('./objects/securityDefinations') 
 const ExternalDocs = require('./objects/externalDocs') 
+const Components = require('./objects/components') 
 
 // Wrapper function for the markdown method
 function convertToMd(input, output) { 
@@ -46,6 +47,14 @@ function convertToMd(input, output) {
             // Process Security definitions object
             if ('securityDefinitions' in inputDoc) {
                 mdDoc.push(SecurityDefinitions.parse(inputDoc.securityDefinitions))
+            }
+
+            if ('components' in inputDoc) {
+                if ('schemas' in inputDoc.components) {
+                    Object.keys(inputDoc.components.schemas).map(
+                        path => mdDoc.push(Components.parseSchemas(path, inputDoc.components.schemas[path]))
+                    )
+                }
             }
 
             // Process Paths
