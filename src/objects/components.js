@@ -13,6 +13,11 @@ function parseSchemas(schemas) {
     name => {
         let data = schemas[name]
 
+        if (!('title' in data)) {
+            console.log(`No tite, skipping ${name}`)
+            return;
+        }
+
         console.log(name)
         console.log(data)
 
