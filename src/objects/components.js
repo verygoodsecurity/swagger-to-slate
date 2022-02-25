@@ -2,23 +2,33 @@
 const responses = require('./responses') 
 const parameters = require('./parameter') 
 
-function parseSchemas(path, data) {
+function parseSchemas(schemas) {
 
   const res = [] 
   let pathParameters = null 
 
-  if (path && data) {
+  console.log(schemas)
 
-    // Make path as a header
-    res.push(`## ${data.title} \n`) 
+  Object.keys(schemas).map(
+    name => {
+        let data = schemas[name]
 
-    if ('description' in data) {
-        res.push(`${data.description} \n`) 
+        console.log(name)
+        console.log(data)
+
+        // Make path as a header
+        res.push(`## ${data.title} \n`) 
+
+        if ('description' in data) {
+            res.push(`${data.description} \n`) 
+        }
+
+        if ('properties' in data) {
+            res.push(`${parameters.parse(null, data.properties)}\n`) 
+        }
+
     }
-
-    if ('properties' in data) {
-        res.push(`${parameters.parse(null, data.properties)}\n`) 
-    }
+  )
   }
   return res.length ? res.join('\n') : null 
 } 

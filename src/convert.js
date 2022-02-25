@@ -51,9 +51,7 @@ function convertToMd(input, output) {
 
             if ('components' in inputDoc) {
                 if ('schemas' in inputDoc.components) {
-                    Object.keys(inputDoc.components.schemas).map(
-                        path => mdDoc.push(Components.parseSchemas(path, inputDoc.components.schemas[path]))
-                    )
+                    mdDoc.push(Components.parseSchemas(inputDoc.components.schemas))
                 }
             }
 
