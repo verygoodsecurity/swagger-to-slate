@@ -50,7 +50,14 @@ function parseProperties(properties) {
             let data = properties[name]
             const line = [] 
             line.push(name)
-            line.push(data.type)
+
+            if ('$ref' in data) {
+                let type = data['$ref'] 
+                type = type.substr(type.lastIndexOf('/') + 1)
+                line.push(`[${type}](#schema-${type})`)
+            } else {
+                line.push(data.type)
+            }
             line.push(data.description)
 
             res.push(`|${line.map(el => ` ${el} `).join('|')}|`) 
