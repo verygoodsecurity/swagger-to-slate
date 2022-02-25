@@ -73,7 +73,7 @@ function parseRequestBody(requestBodyDefintion) {
     const res = [] 
     res.push('> Request \n')
     
-    res.push('```json')
+    res.push('```shell')
     res.push('{"foo": "bar"}')
     res.push('```')
     

@@ -12,13 +12,11 @@ function parse(responses) {
         res.push(`| ${response} | ${desc.replace(/[\r\n]/g, ' ') || ''} |`) 
     }) 
 
-    res.push('> Response')>
+    res.push('> Response \n')
 
     res.push('```json')
+    res.push('{"foo": "bar"}')
     res.push('```')
-
-
-
 
     return res.join('\n') 
 }
