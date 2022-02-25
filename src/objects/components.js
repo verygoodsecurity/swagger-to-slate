@@ -74,7 +74,6 @@ function parseRequestBody(requestBodyDefinition, inputDoc) {
 
     if ('$ref' in requestBodyDefinition) {
         let type = requestBodyDefinition['$ref'] 
-
         
         // need to resolve this reference
         let components = type.split('/')
@@ -102,7 +101,7 @@ function parseRequestBody(requestBodyDefinition, inputDoc) {
 
 
     } else {
-        console.log(`No reference to request body for ${requestBodyDefinition}, skipping`)
+        console.log(`No reference to request body for ${JSON.stringify(requestBodyDefinition)}, skipping`)
     }
 
     // // find referenced doc and turn it into the response payload we want to show
