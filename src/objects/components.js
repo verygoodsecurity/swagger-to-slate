@@ -29,7 +29,6 @@ function parseSchemas(schemas) {
 
     }
   )
-  }
   return res.length ? res.join('\n') : null 
 } 
 
