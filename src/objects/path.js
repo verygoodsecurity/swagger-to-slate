@@ -13,7 +13,7 @@ function parse(path, data) {
   if (path && data) {
 
     // Make path as a header
-    res.push(`# ${path.toUpperCase()}`) 
+    res.push(`## ${path}`) 
 
     // Check if parameter for path are in the place
     if ('parameters' in data) {
@@ -26,7 +26,7 @@ function parse(path, data) {
       if (search(method, ALLOWED_METHODS)) {
 
         // Set method as a subheader
-        res.push(`## ***${method.toUpperCase()}*** \n`) 
+        res.push(`### ***${method.toUpperCase()}*** \n`) 
         const pathInfo = data[method] 
 
         // Set summary
@@ -40,7 +40,7 @@ function parse(path, data) {
         }
 
         // Set path
-        res.push(`### HTTP Request \n\`***${method.toUpperCase()}*** ${path}\` \n`)
+        res.push(`#### HTTP Request \n\`***${method.toUpperCase()}*** ${path}\` \n`)
 
         // Build parameters
         if ('parameters' in pathInfo || pathParameters) {
