@@ -68,24 +68,57 @@ function parseProperties(properties) {
     return res.join('\n') 
 }
 
-function parseRequestBody(requestBodyDefintion, inputDoc) {
+function parseRequestBody(requestBodyDefinition, inputDoc) {
 
     const res = [] 
 
-    // find referenced doc and turn it into the response payload we want to show
-    res.push('> Request \n')
+    if ('$ref' in requestBodyDefinition) {
+        let type = requestBodyDefinition['$ref'] 
+
+        
+        // need to resolve this reference
+        let components = type.split('/')
+        let definition = inputDoc;
+        for (let i = 1;  i < components.length;  i++) {
+            definition = definition[components[i]]
+        }
+
+        // definition now holds the referenced component so let's render it
+        if (definition.content && 'application/json' in definition.content) {
+            let examples = definition.content['application/json'].examples
+
+            Object.keys(examples).map(
+                language => {
+                    if (!search(language, ['ruby', 'python', 'shell'])) {
+                        return
+                    }
+                    res.push('```' + language)
+                    res.push(examples[language].description)
+                    res.push('``` \n')
+                }
+            )
+
+        }
+
+
+    } else {
+        console.log(`No reference to request body for ${requestBodyDefinition}, skipping`)
+    }
+
+    // // find referenced doc and turn it into the response payload we want to show
+    // res.push('> Request \n')
     
-    res.push('```shell')
-    res.push('{"foo": "bar"}')
-    res.push('```')
+    // res.push('```shell')
+    // res.push('{"foo": "bar"}')
+    // res.push('```')
     
-    res.push('```python')
-    res.push('{"foo": "bar"}')
-    res.push('```')
+    // res.push('```python')
+    // res.push('{"foo": "bar"}')
+    // res.push('```')
     
-    res.push('```ruby')
-    res.push('{"foo": "bar"}')
-    res.push('```')
+    // res.push('```ruby')
+    // res.push('{"foo": "bar"}')
+    // res.push('```')
     
     return res.join('\n') 
 
