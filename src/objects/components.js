@@ -71,8 +71,17 @@ function parseProperties(properties) {
 function parseRequestBody(requestBodyDefintion) {
 
     const res = [] 
-    res.push('> Request')
+    res.push('> Request \n')
+    
     res.push('```json')
+    res.push('{"foo": "bar"}')
+    res.push('```')
+    
+    res.push('```python')
+    res.push('{"foo": "bar"}')
+    res.push('```')
+    
+    res.push('```ruby')
     res.push('{"foo": "bar"}')
     res.push('```')
     
