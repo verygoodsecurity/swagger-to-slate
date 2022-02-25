@@ -6,15 +6,12 @@ const Components = require('./components')
 // Allowed HTTP method
 const ALLOWED_METHODS = ['get', 'post', 'put', 'patch', 'delete', 'options'] 
 
-function parse(path, data) {
+function parse(path, data, inputDoc) {
 
   const res = [] 
   let pathParameters = null 
 
   if (path && data) {
-
-    // Make path as a header
-    res.push(`## ${path}`) 
 
     // Check if parameter for path are in the place
     if ('parameters' in data) {
@@ -33,7 +30,7 @@ function parse(path, data) {
           return;
         }
 
-        res.push(`### ${pathInfo.summary}\n`) 
+        res.push(`## ${pathInfo.summary}\n`) 
 
         // Set path
         res.push(`<span class="url"><span class="method">\`${method.toUpperCase()}\`</span><span class="path">${path}</span> \n`)
@@ -49,7 +46,7 @@ function parse(path, data) {
         }
 
         if ('requestBody' in pathInfo) {
-          res.push(`${Components.parseRequestBody(pathInfo.requestBody)}\n`) 
+          res.push(`${Components.parseRequestBody(pathInfo.requestBody, inputDoc)}\n`) 
         }
 
         // Build responses

@@ -58,7 +58,7 @@ function convertToMd(input, output) {
             // Process Paths
             if ('paths' in inputDoc) {
                 Object.keys(inputDoc.paths).map(
-                    path => mdDoc.push(Path.parse(path, inputDoc.paths[path]))
+                    path => mdDoc.push(Path.parse(path, inputDoc.paths[path], inputDoc))
                 ) 
             }
 

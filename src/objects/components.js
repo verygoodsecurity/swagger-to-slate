@@ -68,9 +68,11 @@ function parseProperties(properties) {
     return res.join('\n') 
 }
 
-function parseRequestBody(requestBodyDefintion) {
+function parseRequestBody(requestBodyDefintion, inputDoc) {
 
     const res = [] 
+
+    // find referenced doc and turn it into the response payload we want to show
     res.push('> Request \n')
     
     res.push('```shell')
